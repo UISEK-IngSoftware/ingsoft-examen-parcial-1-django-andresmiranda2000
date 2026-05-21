@@ -1,0 +1,15 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+<div class="list-group">
+    {% for movie in movies %}
+    <a href="{% url 'movie' movie.id %}" class="list-group-item list-group-item-action bg-dark text-light border-secondary">
+        {{ movie.title }} - {{ movie.publication_year }}
+    </a>
+    {% empty %}
+    <div class="list-group-item bg-dark text-light border-secondary">
+        No hay peliculas registradas.
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
