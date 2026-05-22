@@ -1,14 +1,28 @@
 {% extends 'movies/base.html' %}
 
 {% block content %}
-<div class="list-group">
+<div class="row g-3">
     {% for movie in movies %}
-    <a href="{% url 'movie' movie.id %}" class="list-group-item list-group-item-action bg-dark text-light border-secondary">
-        {{ movie.title }} - {{ movie.publication_year }}
-    </a>
+    <div class="col-12 col-md-6">
+        <div class="card movie-card h-100">
+            {% if movie.poster_url %}
+            <img src="{{ movie.poster_url }}" class="card-img-top" alt="Poster de {{ movie.title }}" style="height: 260px; object-fit: cover;">
+            {% else %}
+            <div class="poster-placeholder">Sin imagen</div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title mb-1">{{ movie.title }}</h5>
+                <p class="text-muted mb-2">{{ movie.publication_year }}</p>
+                <p class="card-text mb-0"><strong>Género:</strong> {{ movie.genre }}</p>
+            </div>
+            <div class="card-footer bg-white border-0 pt-0">
+                <a href="{% url 'movie' movie.id %}" class="btn btn-brand btn-sm">Ver detalles</a>
+            </div>
+        </div>
+    </div>
     {% empty %}
-    <div class="list-group-item bg-dark text-light border-secondary">
-        No hay peliculas registradas.
+    <div class="col-12">
+        <div class="alert alert-warning">No hay películas registradas.</div>
     </div>
     {% endfor %}
 </div>
